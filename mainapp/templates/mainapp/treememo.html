@@ -1,3 +1,23 @@
-<html>
-<p>treememo</p>
-</html>
+{% extends 'mainapp/base.html' %}
+
+
+{% block sidebar %}
+<p>test</p>
+{% endblock %}
+
+{% block content %}
+<div>
+  <form>
+    <div class="form-group">
+      <label for="InputTextarea"></label>
+      <textarea class="form-control" id="InputTextarea" placeholder="タイトル"></textarea>
+    </div>
+  </form>
+  <form>
+    <div class="form-group">
+      <label for="InputTextarea"></label>
+      <textarea class="form-control inputmemo-extend" id="InputTextarea" placeholder="メモを入力してください"></textarea>
+    </div>
+  </form>
+</div>
+{% endblock %}

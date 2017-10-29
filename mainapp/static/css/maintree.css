@@ -1,0 +1,9 @@
+body { padding-top: 70px; }
+
+textarea.inputmemo-extend{
+  height: 500px;
+}
+
+.sidebar-extend{
+  background-color:#e6e6fa
+}
