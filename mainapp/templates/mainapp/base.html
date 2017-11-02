@@ -14,10 +14,6 @@
 		<![endif]-->
 	</head>
 	<body>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/treememo.js' %}"></script>
-
     <!--header-->
     <header id="header">
       <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -47,7 +43,7 @@
     </header>
     <!--header end-->
     <div class="container-fluid">
-        <div class="col-sm-4 col-md-4 sidebar sidebar-extend">
+        <div class="col-sm-4 col-md-4 sidebar sidebar-extend hidden-xs">
           <ul id="sidebar" class="nav nav-sidebar">
             {% block sidebar %}
             {% endblock %}
@@ -60,5 +56,8 @@
           {% endblock %}
         </div>
     </div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/treememo.js' %}"></script>
 	</body>
 </html>
