@@ -19,6 +19,7 @@ if(typeof localStorage === "undefined"){
   	};
 
   	function getStorage(key){
+      //引数のkeyに一致するメモをjson形式で返す
       let jsondata = JSON.parse(window.localStorage.getItem(key));
       return jsondata;
   	};
@@ -41,14 +42,29 @@ if(typeof localStorage === "undefined"){
       }
     };
 
-    //文字入力があるごとに保存
-    memoArea.addEventListener('keyup', function(){
-      let jsondata = {
-  			//title: titleArea.value,
-  			memo: memoArea.value
-  		};
-      saveMemo(titleArea.value, jsondata);
-    });
+    //タイトルが重複していたらtrueを返す
+    function keyIsExist(target_key){
+      let key_list = new Array(localStorage.length);
+      for(let i=0; i<localStorage.length; i++){
+        key_list[i] = localStorage.key(i);
+      }
+      if(key_list.indexOf(target_key) >= 0){
+        return true;
+      }else{
+        return false;
+      }
+    };
+
+    //タイトルが重複していた時に上書き保存するかどうか確認する
+    function saveCheck(key, jsondata){
+      let res = confirm("同じタイトルのファイルがあります。上書きしますか？");
+      if(res==true){//confirmがtrueなら、保存
+        saveMemo(key, jsondata);
+        displayList();
+      }else{//confirmがfalseなら何もしない
+        ;
+      }
+    };
 
   	saveBtn.addEventListener("click", function(){
   		event.preventDefault(); // buttonの機能を停止しないとブラウザがリロードされてしまう
@@ -57,18 +73,20 @@ if(typeof localStorage === "undefined"){
   			title: titleArea.value,
   			memo: memoArea.value
   		};
-  		saveMemo(key, title_memo_json);
-      let li = document.createElement("li");
-      li.className = 'list-group-item list-group-extend';
-      li.id = key
-      memo_list.appendChild(li);
-      li.innerHTML = titleArea.value;
+      if(keyIsExist(key)){
+        //タイトルが重複していたら上書きするかconfirmし、
+        saveCheck(key, title_memo_json);
+      }else{
+    		saveMemo(key, title_memo_json);
+        displayList();
+      }
   	});
 
   	removeBtn.addEventListener("click", function(){
   		event.preventDefault();
       let key = titleArea.value;
   		removeMemo(key);
+      displayList();
   	});
 
     //サイドバー上のリストのある項目がクリックされるとタイトルとメモが表示される
@@ -81,6 +99,7 @@ if(typeof localStorage === "undefined"){
         let jsondata = getStorage(target_key);
         document.getElementById("titleid").textContent = jsondata.title;
         document.getElementById("memoid").textContent = jsondata.memo;
+        displayList();
       });
     }
 
