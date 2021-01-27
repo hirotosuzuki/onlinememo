@@ -1,9 +1,13 @@
 body { padding-top: 70px; }
 
 textarea.inputmemo-extend{
-  height: 500px;
+  height: 200px;
 }
 
 .sidebar-extend{
-  background-color:#e6e6fa
+
+}
+
+.list-group-extend {
+    padding: 5px;
 }
